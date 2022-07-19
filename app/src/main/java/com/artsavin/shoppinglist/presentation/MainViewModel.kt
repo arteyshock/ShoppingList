@@ -1,9 +1,11 @@
 package com.artsavin.shoppinglist.presentation
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.artsavin.shoppinglist.data.ShopListRepositoryImpl
-import com.artsavin.shoppinglist.domain.*
+import com.artsavin.shoppinglist.domain.DeleteShopItemUseCase
+import com.artsavin.shoppinglist.domain.EditShopItemUseCase
+import com.artsavin.shoppinglist.domain.GetShopListUseCase
+import com.artsavin.shoppinglist.domain.ShopItem
 
 class MainViewModel: ViewModel() {
 
