@@ -31,7 +31,7 @@ class ShopListAdapter: ListAdapter<ShopItem, ShopItemViewHolder>(ShopItemDiffCal
     override fun onBindViewHolder(holder: ShopItemViewHolder, position: Int) {
         val item = getItem(position)
         holder.tvName.text = item.name
-        holder.tvCount.text = item.quantity.toString()
+        holder.tvCount.text = item.count.toString()
         holder.view.setOnClickListener {
             onShopItemClickListener?.invoke(item)
         }

@@ -2,7 +2,7 @@ package com.artsavin.shoppinglist.domain
 
 data class ShopItem(
     val name: String,
-    val quantity: Int,
+    val count: Int,
     val enabled: Boolean,
     var id: Int = UNDEFINED_ID
 ) {
