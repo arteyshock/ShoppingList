@@ -6,7 +6,7 @@ import com.artsavin.shoppinglist.domain.ShopListRepository
 import java.lang.RuntimeException
 import kotlin.random.Random
 
-class ShopListRepositoryImpl: ShopListRepository {
+object ShopListRepositoryImpl: ShopListRepository {
 
     private val itemListLD = MutableLiveData<List<ShopItem>>()
     //TODO + сортировка по статусу ВКЛ - ВЫКЛ
@@ -15,7 +15,7 @@ class ShopListRepositoryImpl: ShopListRepository {
     private var autoIncrementId = 0
 
     init {
-        for (i in 0 until 100) {
+        for (i in 0 until 10) {
             val name = "Item $i"
             addShopItem(ShopItem(name, i, Random.nextBoolean()))
         }

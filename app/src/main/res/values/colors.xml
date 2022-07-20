@@ -9,4 +9,7 @@
     <color name="black">#FF000000</color>
     <color name="grey">#666666</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="disabled_item_color">#49FFE354</color>
+    <color name="disabled_item_color1">#B2FFEC8A</color>
+    <color name="enabled_item_color">#FFE354</color>
 </resources>

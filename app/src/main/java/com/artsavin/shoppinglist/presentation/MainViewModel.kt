@@ -10,7 +10,7 @@ import com.artsavin.shoppinglist.domain.ShopItem
 class MainViewModel: ViewModel() {
 
     //TODO перейти на DI
-    private val shopListRepository = ShopListRepositoryImpl()
+    private val shopListRepository = ShopListRepositoryImpl
 
     private val getShopListUseCase = GetShopListUseCase(shopListRepository)
     private val deleteShopItemUseCase = DeleteShopItemUseCase(shopListRepository)
