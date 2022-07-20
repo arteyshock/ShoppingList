@@ -2,4 +2,6 @@
     <string name="app_name">Shopping List</string>
     <string name="hint_name">Name:</string>
     <string name="hint_count">Count:</string>
+    <string name="error_name">Invalid name</string>
+    <string name="error_count">Invalid count</string>
 </resources>

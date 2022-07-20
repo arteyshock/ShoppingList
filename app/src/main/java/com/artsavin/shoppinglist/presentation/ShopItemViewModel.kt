@@ -12,7 +12,7 @@ import com.artsavin.shoppinglist.domain.ShopItem
 class ShopItemViewModel: ViewModel() {
 
     //TODO перейти на DI
-    private val shopListRepository = ShopListRepositoryImpl()
+    private val shopListRepository = ShopListRepositoryImpl
 
     private val getShopItemUseCase = GetShopItemUseCase(shopListRepository)
     private val editShopItemUseCase = EditShopItemUseCase(shopListRepository)
@@ -86,11 +86,11 @@ class ShopItemViewModel: ViewModel() {
         return result
     }
 
-    private fun resetErrorInputName() {
+    fun resetErrorInputName() {
         _errorInputName.value = false
     }
 
-    private fun resetErrorInputCount() {
+    fun resetErrorInputCount() {
         _errorInputCount.value = false
     }
 

@@ -6,7 +6,7 @@ import com.artsavin.shoppinglist.domain.ShopListRepository
 import java.lang.RuntimeException
 import kotlin.random.Random
 
-class ShopListRepositoryImpl: ShopListRepository {
+object ShopListRepositoryImpl: ShopListRepository {
 
     private val itemListLD = MutableLiveData<List<ShopItem>>()
     //TODO + сортировка по статусу ВКЛ - ВЫКЛ
