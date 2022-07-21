@@ -4,4 +4,6 @@
     <string name="hint_count">Count:</string>
     <string name="error_name">Invalid name</string>
     <string name="error_count">Invalid count</string>
+    <string name="edit_title">Edit shop item</string>
+    <string name="add_title">Add shop item</string>
 </resources>
