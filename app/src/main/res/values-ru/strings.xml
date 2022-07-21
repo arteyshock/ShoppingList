@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Список покупок</string>
+    <string name="hint_name">Название:</string>
+    <string name="hint_count">Количество:</string>
+    <string name="error_name">Недопустимое название</string>
+    <string name="error_count">Недопустимое количество</string>
+    <string name="edit_title">Редактирование элемента</string>
+    <string name="add_title">Добавление элемента</string>
+</resources>

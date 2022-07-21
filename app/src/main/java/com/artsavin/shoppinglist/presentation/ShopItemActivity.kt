@@ -71,14 +71,14 @@ class ShopItemActivity : AppCompatActivity() {
     }
 
     private fun launchAddMode() {
-        title = "Add shop item"
+        title = getString(R.string.add_title)
         buttonSave.setOnClickListener {
             viewModel.addShopItem(etName.text?.toString(), etCount.text?.toString())
         }
     }
 
     private fun launchEditMode() {
-        title = "Edit shop item"
+        title = getString(R.string.edit_title)
         viewModel.getShopItem(shopItemId)
         viewModel.shopItem.observe(this) {
             etName.setText(it.name)
