@@ -1,6 +1,7 @@
 package com.artsavin.shoppinglist.presentation
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.ViewModelProvider
@@ -9,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.artsavin.shoppinglist.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OnCloseFragmentListener {
 
     private lateinit var viewModel: MainViewModel
     private lateinit var shopListAdapter: ShopListAdapter
@@ -29,6 +30,11 @@ class MainActivity : AppCompatActivity() {
             shopListAdapter.submitList(it)
         }
 
+    }
+
+    override fun onCloseFragment() {
+        supportFragmentManager.popBackStack()
+        Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
     }
 
     private fun isOnePaneMode(): Boolean {

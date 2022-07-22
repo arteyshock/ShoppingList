@@ -1,5 +1,6 @@
 package com.artsavin.shoppinglist.presentation
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +18,8 @@ class ShopItemFragment: Fragment() {
 
     private lateinit var viewModel: ShopItemViewModel
 
+    private lateinit var onCloseFragmentListener: OnCloseFragmentListener
+
     private lateinit var tilName: TextInputLayout
     private lateinit var tilCount: TextInputLayout
     private lateinit var etName: TextInputEditText
@@ -30,6 +33,15 @@ class ShopItemFragment: Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         parseFragmentArgs()
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnCloseFragmentListener) {
+            onCloseFragmentListener = context
+        } else {
+            throw RuntimeException("Activity must implement OnCloseFragmentListener")
+        }
     }
 
     override fun onCreateView(
@@ -68,7 +80,7 @@ class ShopItemFragment: Fragment() {
         }
 
         viewModel.activityDone.observe(viewLifecycleOwner) {
-            activity?.onBackPressed()
+            onCloseFragmentListener.onCloseFragment()
         }
     }
 
@@ -164,4 +176,9 @@ class ShopItemFragment: Fragment() {
             }
         }
     }
+}
+
+interface OnCloseFragmentListener {
+
+    fun onCloseFragment()
 }

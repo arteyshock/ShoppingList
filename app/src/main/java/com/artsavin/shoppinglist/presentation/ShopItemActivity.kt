@@ -3,11 +3,12 @@ package com.artsavin.shoppinglist.presentation
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.artsavin.shoppinglist.R
 import com.artsavin.shoppinglist.domain.ShopItem
 
-class ShopItemActivity : AppCompatActivity() {
+class ShopItemActivity : AppCompatActivity(), OnCloseFragmentListener {
 
     private var screenMode: String = UNKNOWN_MODE
     private var shopItemId: Int = ShopItem.UNDEFINED_ID
@@ -19,6 +20,11 @@ class ShopItemActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             launchWrightMode()
         }
+    }
+
+    override fun onCloseFragment() {
+        Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
+        finish()
     }
 
     private fun parseIntent() {
