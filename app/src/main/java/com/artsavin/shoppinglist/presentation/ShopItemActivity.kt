@@ -15,9 +15,10 @@ class ShopItemActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shop_item)
-
         parseIntent()
-        launchWrightMode()
+        if (savedInstanceState == null) {
+            launchWrightMode()
+        }
     }
 
     private fun parseIntent() {
@@ -45,7 +46,7 @@ class ShopItemActivity : AppCompatActivity() {
         when (screenMode) {
             EDIT_MODE -> {
                 title = getString(R.string.edit_title)
-                fragment = ShopItemFragment.newIntentEditItem(shopItemId)
+                fragment = ShopItemFragment.newInstanceEditItem(shopItemId)
             }
             ADD_MODE -> {
                 title = getString(R.string.add_title)
@@ -54,7 +55,7 @@ class ShopItemActivity : AppCompatActivity() {
             else -> throw RuntimeException("Shop item ID is absent")
         }
         supportFragmentManager.beginTransaction()
-            .add(R.id.shop_item_container, fragment)
+            .replace(R.id.shop_item_container, fragment)
             .commit()
     }
 

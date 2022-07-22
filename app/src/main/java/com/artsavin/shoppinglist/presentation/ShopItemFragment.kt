@@ -155,7 +155,7 @@ class ShopItemFragment: Fragment() {
             }
         }
 
-        fun newIntentEditItem(itemId: Int): ShopItemFragment {
+        fun newInstanceEditItem(itemId: Int): ShopItemFragment {
             return ShopItemFragment().apply {
                 arguments = Bundle().apply {
                     putString(SCREEN_MODE, EDIT_MODE)
