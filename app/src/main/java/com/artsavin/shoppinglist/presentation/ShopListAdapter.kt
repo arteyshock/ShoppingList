@@ -3,7 +3,6 @@ package com.artsavin.shoppinglist.presentation
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.ListAdapter
 import com.artsavin.shoppinglist.R

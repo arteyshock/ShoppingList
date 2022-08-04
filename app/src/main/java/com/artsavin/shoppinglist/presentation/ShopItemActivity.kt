@@ -23,7 +23,6 @@ class ShopItemActivity : AppCompatActivity(), OnCloseFragmentListener {
     }
 
     override fun onCloseFragment() {
-        Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
         finish()
     }
 
