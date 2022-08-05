@@ -3,7 +3,6 @@ package com.artsavin.shoppinglist.presentation
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.artsavin.shoppinglist.R
 import com.artsavin.shoppinglist.domain.ShopItem
@@ -18,7 +17,7 @@ class ShopItemActivity : AppCompatActivity(), OnCloseFragmentListener {
         setContentView(R.layout.activity_shop_item)
         parseIntent()
         if (savedInstanceState == null) {
-            launchWrightMode()
+            launchRightMode()
         }
     }
 
@@ -46,8 +45,8 @@ class ShopItemActivity : AppCompatActivity(), OnCloseFragmentListener {
         }
     }
 
-    private fun launchWrightMode() {
-        var fragment: ShopItemFragment
+    private fun launchRightMode() {
+        val fragment: ShopItemFragment
         when (screenMode) {
             EDIT_MODE -> {
                 title = getString(R.string.edit_title)

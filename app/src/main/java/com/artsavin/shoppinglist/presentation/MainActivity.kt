@@ -1,15 +1,12 @@
 package com.artsavin.shoppinglist.presentation
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.artsavin.shoppinglist.R
 import com.artsavin.shoppinglist.databinding.ActivityMainBinding
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity(), OnCloseFragmentListener {
 
@@ -36,6 +33,7 @@ class MainActivity : AppCompatActivity(), OnCloseFragmentListener {
 
     override fun onCloseFragment() {
         supportFragmentManager.popBackStack()
+        title = getString(R.string.app_name)
     }
 
     private fun isOnePaneMode(): Boolean {

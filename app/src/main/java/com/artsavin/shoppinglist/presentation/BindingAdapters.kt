@@ -1,9 +1,7 @@
 package com.artsavin.shoppinglist.presentation
 
-import android.text.Editable
 import androidx.databinding.BindingAdapter
 import com.artsavin.shoppinglist.R
-import com.artsavin.shoppinglist.domain.ShopItem
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
@@ -25,13 +23,6 @@ fun bindCountError(til: TextInputLayout, isError: Boolean) {
         null
     }
     til.error = message
-}
-
-@BindingAdapter("shopItemName")
-fun bindShopItemName(textEdit: TextInputEditText, name: String?) {
-    name?.let {
-        textEdit.setText(name)
-    }
 }
 
 @BindingAdapter("shopItemCount")

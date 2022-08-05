@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
         <variable
@@ -7,7 +7,7 @@
             type="com.artsavin.shoppinglist.presentation.ShopItemViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_name"
                 android:inputType="textCapWords"
-                app:shopItemName="@{viewModel.shopItem.name}" />
+                android:text="@{viewModel.shopItem.name}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -69,7 +69,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.9"
-            app:srcCompat="@android:drawable/ic_menu_save" />
+            app:srcCompat="@android:drawable/ic_menu_save"
+            android:focusable="true"
+            android:contentDescription="@string/save_content_description" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_cancel"
@@ -81,7 +83,9 @@
             app:layout_constraintHorizontal_bias="0.85"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/fab_save"
-            app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+            app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
+            android:focusable="true"
+            android:contentDescription="@string/cancel_content_description" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

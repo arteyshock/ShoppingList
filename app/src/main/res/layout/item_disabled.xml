@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
+    <data>
+        <variable
+            name="shopItem"
+            type="com.artsavin.shoppinglist.domain.ShopItem" />
+    </data>
+
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -22,8 +29,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textColor="@color/grey"
+                android:textColor="@color/black"
                 android:textSize="@dimen/item_text_size"
+                android:text="@{shopItem.name}"
                 tools:text="Салфетки" />
 
             <TextView
@@ -31,9 +39,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="9999"
+                android:text="@{String.valueOf(shopItem.count)}"
                 android:textAlignment="textEnd"
-                android:textColor="@color/grey"
+                android:textColor="@color/black"
                 android:textSize="@dimen/item_text_size" />
 
         </LinearLayout>
