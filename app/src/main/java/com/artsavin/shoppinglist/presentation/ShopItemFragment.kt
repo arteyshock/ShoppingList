@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.artsavin.shoppinglist.R
 import com.artsavin.shoppinglist.databinding.FragmentShopItemBinding
 import com.artsavin.shoppinglist.domain.ShopItem
 
@@ -45,7 +46,7 @@ class ShopItemFragment: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentShopItemBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -54,9 +55,14 @@ class ShopItemFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
-        setListeners(view)
+        setListeners()
         launchRightScreen()
         observeViewModel()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun observeViewModel() {
@@ -74,6 +80,9 @@ class ShopItemFragment: Fragment() {
     }
 
     private fun launchAddMode() {
+        activity?.apply {
+            title = getString(R.string.add_title)
+        }
         binding.fabSave.setOnClickListener {
             viewModel.addShopItem(
                 binding.etName.text?.toString(),
@@ -83,7 +92,9 @@ class ShopItemFragment: Fragment() {
     }
 
     private fun launchEditMode() {
-
+        activity?.apply {
+            title = getString(R.string.edit_title)
+        }
         viewModel.getShopItem(shopItemId)
         binding.fabSave.setOnClickListener {
             viewModel.editShopItem(
@@ -93,7 +104,7 @@ class ShopItemFragment: Fragment() {
         }
     }
 
-    private fun setListeners(view: View) {
+    private fun setListeners() {
 
         binding.etName.doOnTextChanged {
                 text, start, before, count  -> viewModel.resetErrorInputName()
@@ -104,7 +115,7 @@ class ShopItemFragment: Fragment() {
         }
 
         binding.fabCancel.setOnClickListener {
-            activity?.onBackPressed()
+            viewModel.activityDone()
         }
     }
 

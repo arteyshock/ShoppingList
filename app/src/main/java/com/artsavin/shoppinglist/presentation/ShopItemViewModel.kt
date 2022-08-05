@@ -94,7 +94,7 @@ class ShopItemViewModel: ViewModel() {
         _errorInputCount.value = false
     }
 
-    private fun activityDone() {
+    fun activityDone() {
         _activityDone.value = Unit
     }
 }
