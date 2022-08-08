@@ -1,56 +1,36 @@
 package com.artsavin.shoppinglist.data
 
+import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import com.artsavin.shoppinglist.domain.ShopItem
 import com.artsavin.shoppinglist.domain.ShopListRepository
 import java.lang.RuntimeException
 import kotlin.random.Random
 
-object ShopListRepositoryImpl: ShopListRepository {
+class ShopListRepositoryImpl(
+    application: Application
+): ShopListRepository {
 
-    private val itemListLD = MutableLiveData<List<ShopItem>>()
-    //TODO + сортировка по статусу ВКЛ - ВЫКЛ
-    private val itemList = sortedSetOf<ShopItem>({ o1, o2 -> o1.id.compareTo(o2.id)})
-
-    private var autoIncrementId = 0
-
-    init {
-        for (i in 0 until 10) {
-            val name = "Item $i"
-            addShopItem(ShopItem(name, i, Random.nextBoolean()))
-        }
-    }
+    private val shopListDao = AppDataBase.getInstance(application).shopListDao()
+    private val mapper = ShopListMapper()
 
     override fun addShopItem(item: ShopItem) {
-        if (item.id <= ShopItem.UNDEFINED_ID) {
-            item.id = autoIncrementId++
-        }
-        itemList.add(item)
-        updateList()
+        shopListDao.addShopItem(mapper.mapEntityToDbModel(item))
     }
 
     override fun deleteShopItem(item: ShopItem) {
-        itemList.remove(item)
-        updateList()
+        shopListDao.deleteShopItem(item.id)
     }
 
     override fun editShopItem(item: ShopItem) {
-        val oldItem = getShopItem(item.id)
-        itemList.remove(oldItem)
-        addShopItem(item)
+        // см onConflict
+        shopListDao.addShopItem(mapper.mapEntityToDbModel(item))
     }
 
     override fun getShopItem(itemId: Int): ShopItem {
-        return itemList.find { it.id == itemId } ?: throw RuntimeException(
-            "Item with id $itemId not found"
-        )
+        val item = shopListDao.getShopItem(itemId)
+        return mapper.mapDbModelToEntity(item)
     }
 
-    override fun getShopList(): MutableLiveData<List<ShopItem>> {
-        return itemListLD
-    }
-
-    private fun updateList() {
-        itemListLD.value = itemList.toList()
-    }
+    override fun getShopList(): MutableLiveData<List<ShopItem>> = shopListDao.getShopList()
 }
