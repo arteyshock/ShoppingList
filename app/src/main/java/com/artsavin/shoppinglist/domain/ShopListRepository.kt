@@ -1,5 +1,6 @@
 package com.artsavin.shoppinglist.domain
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 
 interface ShopListRepository {
@@ -12,5 +13,5 @@ interface ShopListRepository {
 
     fun getShopItem(itemId: Int): ShopItem
 
-    fun getShopList(): MutableLiveData<List<ShopItem>>
+    fun getShopList(): LiveData<List<ShopItem>>
 }
