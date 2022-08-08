@@ -2,8 +2,12 @@ package com.artsavin.shoppinglist.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.ListAdapter
 import com.artsavin.shoppinglist.R
+import com.artsavin.shoppinglist.databinding.ItemDisabledBinding
+import com.artsavin.shoppinglist.databinding.ItemEnabledBinding
 import com.artsavin.shoppinglist.domain.ShopItem
 
 
@@ -20,24 +24,38 @@ class ShopListAdapter: ListAdapter<ShopItem, ShopItemViewHolder>(ShopItemDiffCal
             R.layout.item_disabled
         }
 
-        val view = LayoutInflater.from(parent.context).inflate(
+        val binding = DataBindingUtil.inflate<ViewDataBinding>(
+            LayoutInflater.from(parent.context),
             layoutId,
             parent,
-            false
+        false
         )
-        return ShopItemViewHolder(view)
+        return ShopItemViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ShopItemViewHolder, position: Int) {
         val item = getItem(position)
-        holder.tvName.text = item.name
-        holder.tvCount.text = item.count.toString()
-        holder.view.setOnClickListener {
-            onShopItemClickListener?.invoke(item)
-        }
-        holder.view.setOnLongClickListener {
-            onShopItemLongClickListener?.invoke(item)
-            true
+        val binding = holder.binding
+        setBinding(binding, item)
+    }
+
+    private fun setBinding(binding: ViewDataBinding, item: ShopItem) {
+        with (binding) {
+            when (this) {
+                is ItemEnabledBinding -> {
+                    shopItem = item
+                }
+                is ItemDisabledBinding -> {
+                    shopItem = item
+                }
+            }
+            root.setOnClickListener {
+                onShopItemClickListener?.invoke(item)
+            }
+            root.setOnLongClickListener {
+                onShopItemLongClickListener?.invoke(item)
+                true
+            }
         }
     }
 

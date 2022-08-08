@@ -6,4 +6,6 @@
     <string name="error_count">Invalid count</string>
     <string name="edit_title">Edit shop item</string>
     <string name="add_title">Add shop item</string>
+    <string name="cancel_content_description">Cancel</string>
+    <string name="save_content_description">Save</string>
 </resources>

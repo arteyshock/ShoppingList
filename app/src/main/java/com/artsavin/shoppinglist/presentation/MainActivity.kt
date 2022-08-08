@@ -1,31 +1,30 @@
 package com.artsavin.shoppinglist.presentation
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.artsavin.shoppinglist.R
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.artsavin.shoppinglist.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), OnCloseFragmentListener {
 
-    private lateinit var viewModel: MainViewModel
-    private lateinit var shopListAdapter: ShopListAdapter
-
-    private var shopItemContainer: FragmentContainerView? = null
+    private val binding: ActivityMainBinding by lazy {
+        ActivityMainBinding.inflate(layoutInflater)
+    }
+    private val viewModel: MainViewModel by lazy {
+        ViewModelProvider(this).get(MainViewModel::class.java)
+    }
+    private val shopListAdapter: ShopListAdapter by lazy {
+        ShopListAdapter()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
         setupRecyclerView()
         setupAddButton()
-        // этот контейнер есть только в пейзажной ориентации
-        // если он null, то мы находимся в портретной ориентации
-        shopItemContainer = findViewById(R.id.shop_item_container)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         viewModel.shopList.observe(this) {
             shopListAdapter.submitList(it)
         }
@@ -34,11 +33,13 @@ class MainActivity : AppCompatActivity(), OnCloseFragmentListener {
 
     override fun onCloseFragment() {
         supportFragmentManager.popBackStack()
-        Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
+        title = getString(R.string.app_name)
     }
 
     private fun isOnePaneMode(): Boolean {
-        return shopItemContainer == null
+        // этот контейнер есть только в пейзажной ориентации
+        // если он null, то мы находимся в портретной ориентации
+        return binding.shopItemContainer == null
     }
 
     private fun launchShopItemFragment(fragment: ShopItemFragment) {
@@ -50,8 +51,7 @@ class MainActivity : AppCompatActivity(), OnCloseFragmentListener {
     }
 
     private fun setupAddButton() {
-        val buttonAddItem = findViewById<FloatingActionButton>(R.id.fab_add_item)
-        buttonAddItem.setOnClickListener {
+        binding.fabAddItem.setOnClickListener {
             if (isOnePaneMode()) {
                 val intent = ShopItemActivity.newIntentAddItem(this)
                 startActivity(intent)
@@ -62,9 +62,8 @@ class MainActivity : AppCompatActivity(), OnCloseFragmentListener {
     }
 
     private fun setupRecyclerView() {
-        val rvShopList = findViewById<RecyclerView>(R.id.rv_shop_list)
-        with(rvShopList) {
-            shopListAdapter = ShopListAdapter()
+
+        with(binding.rvShopList) {
             adapter = shopListAdapter
             recycledViewPool.setMaxRecycledViews(
                 ShopListAdapter.ENABLED_ITEM_TYPE,
@@ -77,7 +76,7 @@ class MainActivity : AppCompatActivity(), OnCloseFragmentListener {
         }
         setupOnClickListener()
         setupOnLongClickListener()
-        setupOnSwipeListener(rvShopList)
+        setupOnSwipeListener(binding.rvShopList)
 
     }
 
