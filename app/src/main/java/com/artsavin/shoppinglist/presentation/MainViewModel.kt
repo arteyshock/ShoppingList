@@ -8,9 +8,6 @@ import com.artsavin.shoppinglist.domain.DeleteShopItemUseCase
 import com.artsavin.shoppinglist.domain.EditShopItemUseCase
 import com.artsavin.shoppinglist.domain.GetShopListUseCase
 import com.artsavin.shoppinglist.domain.ShopItem
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
 class MainViewModel(application: Application): AndroidViewModel(application) {
