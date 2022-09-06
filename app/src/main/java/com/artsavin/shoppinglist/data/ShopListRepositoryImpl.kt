@@ -8,9 +8,10 @@ import androidx.lifecycle.Transformations
 import com.artsavin.shoppinglist.domain.ShopItem
 import com.artsavin.shoppinglist.domain.ShopListRepository
 import java.lang.RuntimeException
+import javax.inject.Inject
 import kotlin.random.Random
 
-class ShopListRepositoryImpl(
+class ShopListRepositoryImpl @Inject constructor(
     application: Application
 ): ShopListRepository {
 

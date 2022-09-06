@@ -7,20 +7,23 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.artsavin.shoppinglist.R
 import com.artsavin.shoppinglist.databinding.ActivityMainBinding
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), OnCloseFragmentListener {
 
     private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
-    private val viewModel: MainViewModel by lazy {
-        ViewModelProvider(this).get(MainViewModel::class.java)
-    }
+
+    @Inject
+    lateinit var viewModel: MainViewModel
+
     private val shopListAdapter: ShopListAdapter by lazy {
         ShopListAdapter()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        (application as ShoppingListApplication).component.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         setupRecyclerView()
