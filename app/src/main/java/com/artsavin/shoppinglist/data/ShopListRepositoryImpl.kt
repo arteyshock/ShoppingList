@@ -1,22 +1,18 @@
 package com.artsavin.shoppinglist.data
 
-import android.app.Application
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.artsavin.shoppinglist.domain.ShopItem
 import com.artsavin.shoppinglist.domain.ShopListRepository
-import java.lang.RuntimeException
 import javax.inject.Inject
-import kotlin.random.Random
 
 class ShopListRepositoryImpl @Inject constructor(
-    application: Application
+    private val shopListDao: ShopListDao,
+    private val mapper: ShopListMapper
 ): ShopListRepository {
 
-    private val shopListDao = AppDataBase.getInstance(application).shopListDao()
-    private val mapper = ShopListMapper()
+//    private val shopListDao = AppDataBase.getInstance(application).shopListDao()
+//    private val mapper = ShopListMapper()
 
     override suspend fun addShopItem(item: ShopItem) {
         shopListDao.addShopItem(mapper.mapEntityToDbModel(item))

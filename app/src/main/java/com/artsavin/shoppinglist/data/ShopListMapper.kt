@@ -1,8 +1,9 @@
 package com.artsavin.shoppinglist.data
 
 import com.artsavin.shoppinglist.domain.ShopItem
+import javax.inject.Inject
 
-class ShopListMapper {
+class ShopListMapper @Inject constructor() {
 
     fun mapEntityToDbModel(shopItem: ShopItem) = ShopItemDbModel(
         shopItem.id,
