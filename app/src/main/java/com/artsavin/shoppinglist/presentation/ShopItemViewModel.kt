@@ -1,18 +1,21 @@
 package com.artsavin.shoppinglist.presentation
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.artsavin.shoppinglist.data.ShopListRepositoryImpl
 import com.artsavin.shoppinglist.domain.AddShopItemUseCase
 import com.artsavin.shoppinglist.domain.EditShopItemUseCase
 import com.artsavin.shoppinglist.domain.GetShopItemUseCase
 import com.artsavin.shoppinglist.domain.ShopItem
+import kotlinx.coroutines.launch
 
-class ShopItemViewModel: ViewModel() {
+class ShopItemViewModel(application: Application): AndroidViewModel(application) {
 
     //TODO перейти на DI
-    private val shopListRepository = ShopListRepositoryImpl
+    private val shopListRepository = ShopListRepositoryImpl(application)
 
     private val getShopItemUseCase = GetShopItemUseCase(shopListRepository)
     private val editShopItemUseCase = EditShopItemUseCase(shopListRepository)
@@ -38,8 +41,10 @@ class ShopItemViewModel: ViewModel() {
         val name = parseName(inputName)
         val count = parseCount(inputCount)
         if (validateInput(name, count)) {
-            val shopItem = ShopItem(name, count, true)
-            addShopItemUseCase.addShopItem(shopItem)
+            viewModelScope.launch {
+                val shopItem = ShopItem(name, count, true)
+                addShopItemUseCase.addShopItem(shopItem)
+            }
             activityDone()
         }
     }
@@ -49,16 +54,20 @@ class ShopItemViewModel: ViewModel() {
         val count = parseCount(inputCount)
         if (validateInput(name, count)) {
             _shopItem.value?.let {
-                val shopItem = it.copy(name = name, count = count)
-                editShopItemUseCase.editShopItem(shopItem)
+                viewModelScope.launch {
+                    val shopItem = it.copy(name = name, count = count)
+                    editShopItemUseCase.editShopItem(shopItem)
+                }
             }
             activityDone()
         }
     }
 
     fun getShopItem(itemId: Int) {
-        val item = getShopItemUseCase.getShopItem(itemId)
-        _shopItem.value = item
+        viewModelScope.launch {
+            val item = getShopItemUseCase.getShopItem(itemId)
+            _shopItem.value = item
+        }
     }
 
     private fun parseName(inputName: String?): String {
