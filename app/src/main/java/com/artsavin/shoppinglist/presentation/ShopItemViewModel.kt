@@ -1,25 +1,21 @@
 package com.artsavin.shoppinglist.presentation
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.artsavin.shoppinglist.data.ShopListRepositoryImpl
 import com.artsavin.shoppinglist.domain.AddShopItemUseCase
 import com.artsavin.shoppinglist.domain.EditShopItemUseCase
 import com.artsavin.shoppinglist.domain.GetShopItemUseCase
 import com.artsavin.shoppinglist.domain.ShopItem
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ShopItemViewModel(application: Application): AndroidViewModel(application) {
-
-    //TODO перейти на DI
-    private val shopListRepository = ShopListRepositoryImpl(application)
-
-    private val getShopItemUseCase = GetShopItemUseCase(shopListRepository)
-    private val editShopItemUseCase = EditShopItemUseCase(shopListRepository)
-    private val addShopItemUseCase = AddShopItemUseCase(shopListRepository)
+class ShopItemViewModel @Inject constructor(
+    private val getShopItemUseCase: GetShopItemUseCase,
+    private val editShopItemUseCase: EditShopItemUseCase,
+    private val addShopItemUseCase: AddShopItemUseCase
+): ViewModel() {
 
     private val _errorInputName = MutableLiveData<Boolean>()
     val errorInputName: LiveData<Boolean>

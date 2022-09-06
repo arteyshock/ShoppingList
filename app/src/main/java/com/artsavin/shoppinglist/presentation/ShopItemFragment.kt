@@ -1,5 +1,6 @@
 package com.artsavin.shoppinglist.presentation
 
+import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,11 +12,15 @@ import androidx.lifecycle.ViewModelProvider
 import com.artsavin.shoppinglist.R
 import com.artsavin.shoppinglist.databinding.FragmentShopItemBinding
 import com.artsavin.shoppinglist.domain.ShopItem
+import javax.inject.Inject
 
 class ShopItemFragment: Fragment() {
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
     private val viewModel: ShopItemViewModel by lazy {
-        ViewModelProvider(this).get(ShopItemViewModel::class.java)
+        ViewModelProvider(this, viewModelFactory)[ShopItemViewModel::class.java]
     }
 
     private lateinit var onCloseFragmentListener: OnCloseFragmentListener
@@ -27,6 +32,9 @@ class ShopItemFragment: Fragment() {
     private val binding: FragmentShopItemBinding
         get() = _binding ?: throw RuntimeException("FragmentShopItemBinding == null")
 
+    private val component by lazy {
+        (requireActivity().application as ShoppingListApplication).component
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +42,7 @@ class ShopItemFragment: Fragment() {
     }
 
     override fun onAttach(context: Context) {
+        component.inject(this)
         super.onAttach(context)
         if (context is OnCloseFragmentListener) {
             onCloseFragmentListener = context

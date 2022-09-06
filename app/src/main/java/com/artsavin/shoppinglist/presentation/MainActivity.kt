@@ -16,14 +16,22 @@ class MainActivity : AppCompatActivity(), OnCloseFragmentListener {
     }
 
     @Inject
-    lateinit var viewModel: MainViewModel
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private val viewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
+    }
 
     private val shopListAdapter: ShopListAdapter by lazy {
         ShopListAdapter()
     }
 
+    private val component by lazy {
+        (application as ShoppingListApplication).component
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        (application as ShoppingListApplication).component.inject(this)
+        component.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         setupRecyclerView()
